@@ -1,8 +1,32 @@
 aid: shopzilla
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/shopzilla.png
 name: Shopzilla
-description: 'Shopzilla is a company surfaced as a portfolio company of norwest-venture-partners and added
-  to the API Evangelist network as a stub for enrichment. Sector: unknown. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Shopzilla is a comparison-shopping brand that lets consumers search across
+  thousands of merchants to compare products, prices, and merchant ratings.
+  Originally launched as BizRate and later Shopzilla, Inc., the business
+  rebranded its corporate entity to Connexity in 2014 and is today operated by
+  Connexity, a Taboola company, alongside sibling properties such as Bizrate,
+  Beso, and PriceGrabber. Historically Shopzilla ran the Shopzilla Publisher
+  Program, a CPC affiliate program whose Catalog API (the Bizrate and Beso APIs)
+  exposed catalogued products, merchant offers, and ratings/reviews over a
+  query-based RESTful web service returning XML or JSON. That legacy publisher
+  API is no longer a documented, publicly onboardable developer program; the
+  consumer shopzilla.com site remains live but publishes no current public API,
+  developer portal, or OpenAPI. This profile was surfaced as a portfolio
+  company of Norwest Venture Partners and enriched with a domain-security probe
+  pending any future public API surface.
 url: https://raw.githubusercontent.com/api-evangelist/shopzilla/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,12 +34,18 @@ x-backed-by:
 - norwest-venture-partners
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-operated-by: connexity
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-- Unknown
+- Comparison Shopping
+- Retail
+- E-Commerce
+- Affiliate Marketing
+- Price Comparison
+- Product Discovery
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,5 +53,12 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/shopzilla-domain-security.yml
 - type: Website
-  url: https://shopzilla.com
+  url: https://www.shopzilla.com
+x-enrichment:
+  date: '2026-07-21'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
