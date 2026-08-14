@@ -18,15 +18,20 @@ description: >-
   Originally launched as BizRate and later Shopzilla, Inc., the business
   rebranded its corporate entity to Connexity in 2014 and is today operated by
   Connexity, a Taboola company, alongside sibling properties such as Bizrate,
-  Beso, and PriceGrabber. Historically Shopzilla ran the Shopzilla Publisher
-  Program, a CPC affiliate program whose Catalog API (the Bizrate and Beso APIs)
-  exposed catalogued products, merchant offers, and ratings/reviews over a
-  query-based RESTful web service returning XML or JSON. That legacy publisher
-  API is no longer a documented, publicly onboardable developer program; the
-  consumer shopzilla.com site remains live but publishes no current public API,
-  developer portal, or OpenAPI. This profile was surfaced as a portfolio
-  company of Norwest Venture Partners and enriched with a domain-security probe
-  pending any future public API surface.
+  Beso, and PriceGrabber. Shopzilla itself publishes no API: no Shopzilla-branded
+  developer host resolves in DNS (developer.shopzilla.com, api.shopzilla.com and
+  docs.shopzilla.com are all NXDOMAIN), and www.shopzilla.com sits behind an AWS
+  CloudFront WAF that bot-challenges the root and returns HTTP 403 on every other
+  path, including all /.well-known/ locations. The publisher/affiliate API program
+  that was historically marketed as the Shopzilla Publisher Program is today
+  published under the CONNEXITY brand, on Connexity-owned hosts, and is deliberately
+  not catalogued here: the docs are titled "Connexity Monetization API", list
+  info@connexity.com as the contact, and are served from api.cnnx.link and
+  publisher-api.connexity.com. The legacy Catalog API host catalog.bizrate.com does
+  still answer, but returns bare Tomcat errors and publishes no specification. This
+  profile was surfaced as a portfolio company of Norwest Venture Partners; the
+  2026-08-13 enrichment pass probed 18 paths across three hosts, swept five package
+  registries, and found no Shopzilla developer surface of any kind.
 url: https://raw.githubusercontent.com/api-evangelist/shopzilla/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -37,7 +42,7 @@ x-tier-reason: portfolio-lead
 x-operated-by: connexity
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - Comparison Shopping
@@ -55,10 +60,33 @@ maintainers:
 common:
 - type: DomainSecurity
   url: security/shopzilla-domain-security.yml
+- type: LLMsTxt
+  url: llms/shopzilla-llms.txt
 - type: Website
   url: https://www.shopzilla.com
 x-enrichment:
-  date: '2026-07-21'
+  date: '2026-08-13'
   status: minimal
-  artifacts_added: 1
+  artifacts_added: 3
   pass: local-v1
+x-coverage:
+  state: none
+  reason: no-developer-program
+  detail: >-
+    Shopzilla ships only a consumer comparison-shopping website — developer.shopzilla.com,
+    api.shopzilla.com and docs.shopzilla.com do not resolve at all, and the publisher API
+    program a reader might expect to find here is published under the Connexity brand at
+    api.cnnx.link (page title "Connexity Monetization API", contact info@connexity.com),
+    so it belongs to a Connexity profile rather than to this one.
+  evidence:
+  - url: https://api.cnnx.link/
+    status: 200
+  - url: https://www.shopzilla.com/.well-known/security.txt
+    status: 403
+  - url: https://catalog.bizrate.com/openapi.json
+    status: 404
+  - url: https://catalog.bizrate.com/services/catalog/v1/us/product
+    status: 400
+  - url: https://registry.npmjs.org/-/v1/search?text=shopzilla
+    status: 200
+  checked: '2026-08-13'
