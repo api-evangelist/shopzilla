@@ -1,0 +1,60 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Unauthenticated registry sweep of npm (registry.npmjs.org search), PyPI
+  (pypi.org/pypi/<pkg>/json), RubyGems (rubygems.org/api/v1/gems/<pkg>.json) and
+  Packagist (packagist.org/search.json), plus the GitHub org api.github.com/orgs/shopzilla.
+  No first-party Shopzilla client library exists in any public registry.
+name: Shopzilla
+summary: >-
+  Shopzilla publishes no SDKs. It has no developer program and no public API for an
+  SDK to wrap (see apis.yml x-coverage), so this is an expected zero rather than a
+  gap in the sweep. No `SDKs` pointer is wired into apis.yml.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_searched:
+- registry: npm
+  endpoint: https://registry.npmjs.org/-/v1/search?text=shopzilla&size=20
+  status: 200
+  hits: 0
+  note: Search returned total=0. No package matches the Shopzilla name.
+- registry: pypi
+  endpoint: https://pypi.org/pypi/shopzilla/json
+  status: 404
+  hits: 0
+  note: No project named shopzilla.
+- registry: rubygems
+  endpoint: https://rubygems.org/api/v1/gems/shopzilla.json
+  status: 404
+  hits: 0
+  note: No gem named shopzilla.
+- registry: packagist
+  endpoint: https://packagist.org/search.json?q=shopzilla
+  status: 200
+  hits: 0
+  note: >-
+    Results returned are unrelated third-party projects (shopiolabs/shopioapi,
+    phpzilla/*). No Shopzilla-authored package.
+- registry: github
+  endpoint: https://api.github.com/orgs/shopzilla
+  status: 200
+  hits: 0
+  note: >-
+    The github.com/shopzilla organization exists (id 263356, created 2010-05-03) but
+    publishes ZERO public repositories, so there is no source-distributed client
+    library either. No GitHubOrganization pointer is wired: an org page with no public
+    repos is not a developer presence, and org ownership by this Shopzilla could not
+    be confirmed from the org profile (no blog, email, or description set).
+adjacent_but_not_first_party:
+- name: connexity
+  registry: pypi
+  url: https://pypi.org/pypi/connexity/json
+  version: 1.0.4
+  published: null
+  official: false
+  note: >-
+    Summary reads "A Python client for Connexity API" but the package declares no
+    author, no home_page and no project_urls, so first-party authorship cannot be
+    established. It is also Connexity-named, not Shopzilla-named — see the ownership
+    note in apis.yml x-coverage. NOT counted and NOT wired.

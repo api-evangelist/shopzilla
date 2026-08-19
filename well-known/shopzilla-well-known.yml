@@ -1,0 +1,129 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live unauthenticated HTTP probes of every host reachable from this profile —
+  www.shopzilla.com (the only host named in apis.yml) and catalog.bizrate.com
+  (the legacy Shopzilla Publisher Program Catalog API host, which still answers).
+  No /.well-known/ path returned a document on any host.
+name: Shopzilla
+summary: >-
+  Shopzilla serves no /.well-known/ documents. www.shopzilla.com is fronted by an
+  AWS CloudFront WAF that returns "x-amzn-waf-action: challenge" (HTTP 202) on the
+  root and HTTP 403 on every other path, including all /.well-known/ paths, so those
+  403s are a bot challenge rather than an authoritative absence. catalog.bizrate.com
+  is not challenged and answers an authoritative 404 on every /.well-known/ path.
+  NO WellKnown or SecurityTxt pointer is emitted for this profile: nothing returned a
+  200 carrying a real document.
+hosts:
+- host: www.shopzilla.com
+  note: >-
+    AWS CloudFront + AWS WAF. GET / returns HTTP 202 with x-amzn-waf-action:
+    challenge and a zero-length body; every other path returns HTTP 403
+    "The request could not be satisfied. Request blocked." with a CloudFront
+    error body. This is an edge bot challenge applied to all clients, not a
+    per-path 404, so these results are inconclusive as to what the origin serves.
+  probes:
+  - path: /.well-known/security.txt
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /robots.txt
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /llms.txt
+    status: 403
+    result: blocked-by-waf
+    file: null
+  - path: /openapi.json
+    status: 403
+    result: blocked-by-waf
+    file: null
+- host: catalog.bizrate.com
+  note: >-
+    Live Apache Tomcat behind Google Cloud. Not WAF-challenged, so these statuses
+    are authoritative. The legacy Catalog API path /services/catalog/v1/us/product
+    still resolves and returns HTTP 400 Bad Request (a Tomcat error page, no
+    machine-readable body) rather than 404, but no spec or well-known document is
+    served. Included here because it is the historical Shopzilla Publisher Program
+    Catalog API host; the API itself is Connexity-branded today (see apis.yml
+    x-coverage) and is NOT claimed as a Shopzilla contract.
+  probes:
+  - path: /.well-known/security.txt
+    status: 404
+    result: not-found
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    result: not-found
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    result: not-found
+    file: null
+  - path: /robots.txt
+    status: 404
+    result: not-found
+    file: null
+  - path: /llms.txt
+    status: 404
+    result: not-found
+    file: null
+  - path: /openapi.json
+    status: 404
+    result: not-found
+    file: null
+  - path: /swagger.json
+    status: 404
+    result: not-found
+    file: null
+  - path: /api-docs
+    status: 404
+    result: not-found
+    file: null
+dns_only:
+- host: developer.shopzilla.com
+  result: nxdomain
+  note: Does not resolve. No Shopzilla-branded developer host exists.
+- host: api.shopzilla.com
+  result: nxdomain
+  note: Does not resolve.
+- host: docs.shopzilla.com
+  result: nxdomain
+  note: Does not resolve.
+totals:
+  paths_probed: 18
+  documents_found: 0
+  security_txt: false
+  agent_card: false
+  api_catalog: false
+  openid_configuration: false
+pointer_emitted: false
+pointer_note: >-
+  Per the enrichment contract, a WellKnown/SecurityTxt pointer asserts the provider
+  SERVES that surface. Zero 200s carrying a document were observed, so no pointer is
+  wired into apis.yml. This file records the absence, not a presence.
