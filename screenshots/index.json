@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "shopzilla",
+    "captured_at": "2026-10-11T192717",
+    "source_url": "https://www.shopzilla.com",
+    "source_type": "Website",
+    "file": "shopzilla-2026-10-11T192717.png",
+    "bytes": 778131,
+    "capture": "playwright-local"
+  }
+]
