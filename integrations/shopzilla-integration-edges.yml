@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/shopzilla/integrations
+- https://n8n.io/integrations/shopzilla/
+- https://composio.dev/toolkits/shopzilla
+- https://monid.ai/tools/shopzilla
+checked:
+- https://composio.dev/toolkits/shopzilla
+- https://monid.ai/tools/shopzilla
+- https://n8n.io/integrations/shopzilla/
+- https://zapier.com/apps/shopzilla/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
